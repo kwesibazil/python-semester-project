@@ -41,20 +41,19 @@ class Search:
 ########################################################################################################################
 
 
-#checks to see if the current node has a valid neighbour and if that neighbour is 'clear'
+# explore neighbors anti-clockwise starting by the one on the left
 ########################################################################################################################
     def check (self, node):
-      if ('left' in node.keys() and self.layout[node["left"][0]][node["left"][1]] == 'clear'):
+        if ('left' in node.keys() and self.layout[node["left"][0]][node["left"][1]] == 'clear'):
             self.visitable(node["left"])
 
-      if 'bottom' in node.keys()  and self.layout[node["bottom"][0]][node["bottom"][1]] == 'clear':
+        if 'bottom' in node.keys()  and self.layout[node["bottom"][0]][node["bottom"][1]] == 'clear':
             self.visitable(node["bottom"])
-  
 
-      if 'right' in node.keys() and self.layout[node["right"][0]][node["right"][1]] == 'clear':
-          self.visitable(node["right"])
+        if 'right' in node.keys() and self.layout[node["right"][0]][node["right"][1]] == 'clear':
+            self.visitable(node["right"])
 
-      if 'top' in node.keys() and self.layout[node["top"][0]][node["top"][1]] == 'clear': 
-              self.visitable(node["top"])
+        if 'top' in node.keys() and self.layout[node["top"][0]][node["top"][1]] == 'clear': 
+            self.visitable(node["top"])
 ########################################################################################################################
       

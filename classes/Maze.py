@@ -3,13 +3,14 @@ from random import randint
 import time
 
 class Maze:
-    def __init__(self, window, grid):
+    def __init__(self, window, grid, ):
         self.grid = grid
         self.layout = []   
         self.position = []
         self.start_Pos = []   
         self.goal_Pos = [] 
-        self.cell_size = 25
+        self.goal_Pos2 = []
+        self.cell_size = 5
         self.window_width = 1260
         self.window_height = 720
         self.goal_colour = "red"

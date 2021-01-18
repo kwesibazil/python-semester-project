@@ -10,6 +10,7 @@ from classes.Breadth_First import Breadth_First
 window = Tk()
 
 maze = Maze(window, 8)
+
 maze.generateMaze()
 dfs = Depth_First(maze.layout, maze.start_Pos, maze.goal_Pos)
 dfs.start()

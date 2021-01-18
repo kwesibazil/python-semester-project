@@ -19,8 +19,9 @@ class Depth_First(Search):
         node = self.frontier.pop() 
 
         #if node contains goal state return solution
-        #if self.goal == node["pos"]:
-            #return      #return state is access through object variable
+        if self.goal == node["pos"]:
+            self.explored_set.pop(0)
+            return      #return state is access through object variable
 
         #adds node to the explored set
         self.explored_set.append(node["pos"])
