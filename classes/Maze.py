@@ -1,18 +1,25 @@
 from tkinter import Canvas, Tk
 from random import randint
+import time
 
 class Maze:
     def __init__(self, window, grid):
         self.grid = grid
         self.layout = []   
-        self.position = []    
+        self.position = []
+        self.start_Pos = []   
+        self.goal_Pos = [] 
         self.cell_size = 55
-        self.window = window
+        self.window_width = 800
+        self.window_height = 600
         self.goal_colour = "red"
         self.wall_colour = "blue"
         self.background = "white"
-        self.start_colour = "green"
+        self.start_colour = "yellow"
         self.passage_colour = "white"
+        self.speed = 0.01
+        self.canvas = [] 
+        self.window = window
 
 ########################################################################################################################
     def generateMaze(self):
@@ -43,6 +50,12 @@ class Maze:
                     stack_empty = True
 
         self.position = self.position[0:2] 
+        self.start_Pos = self.position[0]
+        self.goal_Pos = self.position[1]
+        self.layout[self.start_Pos[0]][self.start_Pos[1]] = 'start'
+        self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
+    
+        
 ########################################################################################################################
 
 ########################################################################################################################
@@ -66,16 +79,19 @@ class Maze:
 ########################################################################################################################
 
 #########################################################################################################################
-    def generateCanvase(self, title = "CSE4100 Semester Project"):
+    def generateWindow(self,title = "CSE4100 Semester Project"):
         self.window.title(title)
-        global canvas
-        canvas = Canvas(self.window, width=(self.grid * self.cell_size), height=(self.grid * self.cell_size), bg=self.background )
-        canvas.pack()
+        self.window.geometry(f'{self.window_width}x{self.window_height}')
+########################################################################################################################
+
+########################################################################################################################
+    def generateCanvase(self):
+        self.canvas = Canvas(self.window, width=(self.grid * self.cell_size), height=(self.grid * self.cell_size), bg=self.background )
+        self.canvas.pack(expand=True)
 #########################################################################################################################
 
 #########################################################################################################################
-    def colourMaze(self):
-        
+    def colourMaze(self):   
         for row in range(self.grid):
             for col in range(self.grid):
                 if self.layout[row][col] == 'clear':
@@ -93,5 +109,18 @@ class Maze:
         y1 = pos[0] * self.cell_size
         x2 = x1 +  self.cell_size
         y2 = y1 +  self.cell_size
-        canvas.create_rectangle(x1, y1, x2, y2, fill=colour)
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill=colour)
 ########################################################################################################################
+
+########################################################################################################################
+    def solveMaze(self, path):
+
+        self.colourMaze()
+        self.draw(self.start_Pos, self.start_colour)
+        self.draw(self.goal_Pos, self.goal_colour)
+
+        for node in path:
+            self.draw(node, "green")
+            self.window.update()
+            time.sleep(0.2)
+#########################################################################################################################

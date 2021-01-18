@@ -1,20 +1,29 @@
 import sys
-sys.path.insert(1, "/classes")
+sys.path.insert(0, "/classes")
 
-from classes.Maze import Maze
 from tkinter import Tk
+from classes.Maze import Maze
+from classes.Depth_First import Depth_First
+
 
 
 window = Tk()
 maze = Maze(window, 8)
-
 maze.generateMaze()
+
+dfs = Depth_First(maze.layout, maze.start_Pos, maze.goal_Pos)
+
+dfs.start()
+
+layout = dfs.layout
+expore = dfs.explored_set
+kwesi = dfs.path
+print(type(kwesi))
+print(type(expore))
+
+maze.generateWindow()
 maze.generateCanvase()
-maze.colourMaze()
-
-maze.draw(maze.position[0], maze.start_colour)
-maze.draw(maze.position[1],maze.goal_colour)
-
-print(maze.layout)
+maze.solveMaze(dfs.explored_set)
 
 window.mainloop()
+
