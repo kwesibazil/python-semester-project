@@ -1,6 +1,6 @@
 from classes.Search import Search
 
-class Depth_First(Search):
+class Breadth_First(Search):
     def __init__(self, layout, startPos, goalPos):
         Search. __init__(self, layout, startPos, goalPos)
         self.frontier.append(self.start_pos)
@@ -15,8 +15,8 @@ class Depth_First(Search):
             print("stack empty")
             return
 
-        #pop the last node from the stack
-        node = self.frontier.pop() 
+        #pop the last node from the Queue
+        node = self.frontier.pop(0) 
 
         #if node contains goal state return solution
         #if self.goal == node["pos"]:

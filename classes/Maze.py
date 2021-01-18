@@ -9,12 +9,12 @@ class Maze:
         self.position = []
         self.start_Pos = []   
         self.goal_Pos = [] 
-        self.cell_size = 55
-        self.window_width = 800
-        self.window_height = 600
+        self.cell_size = 25
+        self.window_width = 1260
+        self.window_height = 720
         self.goal_colour = "red"
         self.wall_colour = "blue"
-        self.background = "white"
+        self.background = "grey"
         self.start_colour = "yellow"
         self.passage_colour = "white"
         self.speed = 0.01
@@ -53,7 +53,7 @@ class Maze:
         self.start_Pos = self.position[0]
         self.goal_Pos = self.position[1]
         self.layout[self.start_Pos[0]][self.start_Pos[1]] = 'start'
-        self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
+        #self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
     
         
 ########################################################################################################################
@@ -85,9 +85,10 @@ class Maze:
 ########################################################################################################################
 
 ########################################################################################################################
-    def generateCanvase(self):
-        self.canvas = Canvas(self.window, width=(self.grid * self.cell_size), height=(self.grid * self.cell_size), bg=self.background )
-        self.canvas.pack(expand=True)
+    def generateCanvase(self, heading):
+        self.canvas = Canvas(self.window, width=((self.grid * self.cell_size)), height=(self.grid * self.cell_size), bg=self.background )
+        self.canvas.pack()
+        self.canvas.create_text(1160,100,fill="darkblue",font="Times 16 italic bold",text=heading)
 #########################################################################################################################
 
 #########################################################################################################################
