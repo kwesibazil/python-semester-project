@@ -10,8 +10,8 @@ class Maze:
         self.start_Pos = []   
         self.goal_Pos = [] 
         self.goal_Pos2 = []
-        self.cell_size = 5
-        self.window_width = 1260
+        self.cell_size = 25
+        self.window_width = 600
         self.window_height = 720
         self.goal_colour = "red"
         self.wall_colour = "blue"
@@ -55,8 +55,6 @@ class Maze:
         self.goal_Pos = self.position[1]
         self.layout[self.start_Pos[0]][self.start_Pos[1]] = 'start'
         #self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
-    
-        
 ########################################################################################################################
 
 ########################################################################################################################
@@ -115,8 +113,7 @@ class Maze:
 ########################################################################################################################
 
 ########################################################################################################################
-    def solveMaze(self, path):
-
+    def displayMaze(self, path):
         self.colourMaze()
         self.draw(self.start_Pos, self.start_colour)
         self.draw(self.goal_Pos, self.goal_colour)

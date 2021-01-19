@@ -5,12 +5,35 @@ class A_Search(Search):
         Search. __init__(self, layout, startPos, goalPos)
         self.frontier.append(self.start_pos)
 
-    def start(self):
+    def search(self, x,y):
+        currentPos = [x, y]
+        kwesi = self.layout[x]
 
-      currentNode = self.start_pos
+        if currentPos == self.goal:
+            self.explored_set.pop(0)
+            return True
 
-      #current if current node is goal
-      if currentNode == self.goal:
-          return self.explored_set
+        elif self.layout[x][y] == 'wall':
+            return False
 
-      elif 
+        elif  self.visitable(currentPos):
+            return False
+
+        self.explored_set.append(currentPos)
+
+        if((x< len(self.layout) - 1 and self.search(x+1, y))
+            or (y > 0 and self.search(x, y-1))
+            or (x > 0 and self.search(x-1, y))
+            or (y < len(self.layout)-1 and self.search(x, y+1))):
+            return True
+
+        return False
+#checks to see if the node has been visited before
+
+
+
+########################################################################################################################
+    def visitable(self, node):
+        if node in self.explored_set:
+            return True
+########################################################################################################################

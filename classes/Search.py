@@ -7,9 +7,7 @@ class Search:
         self.goal = goalPos
         self.layout = layout
         self.start_pos = self.validNode(startPos)
-        #self.stack.append(self.start_pos)
-
-
+        
 #adds the position of the top, bottom,left, right to the current node as item in a dict
 ######################################################################################################################
     def validNode(self, pos):
@@ -36,7 +34,6 @@ class Search:
     def visitable(self, node):
         if node not in self.explored_set:
             node = self.validNode(node)
-
             self.frontier.append(node)
 ########################################################################################################################
 
@@ -56,4 +53,3 @@ class Search:
         if 'top' in node.keys() and self.layout[node["top"][0]][node["top"][1]] == 'clear': 
             self.visitable(node["top"])
 ########################################################################################################################
-      
