@@ -1,29 +1,36 @@
-from tkinter import Canvas, Tk
+from tkinter import Button, Canvas, Frame, Label, OptionMenu, StringVar, Tk
 from random import randint
+import json
 import time
 
 class Maze:
-    def __init__(self, window, grid, ):
-        self.grid = grid
-        self.layout = []   
+    def __init__(self, window, grid, cell_size =25):
+        self.speed = 0.2                            #movement speed of the maze  
+        self.grid = grid                            #size of the maze(e.g 8*8/14*14)  - datatype int
+        self.cell_size = cell_size                         #size of each cell - datatype int
+
+        self.path = []
+        self.layout = []                            #the layout (postion of every individual wall and passage in the maze)  - datatype multi array [[][][]...]
+        self.start_Pos = []                         #the starting point of the maze -- data-type list[x,y]
+        self.goal_Pos = []                          #the first target point of the maze -- data-type list[x,y]                  
+        self.goal_Pos_2 = []                        #the second target point of the maze -- data-type list[x,y]  
+    
+        #utilities properties 
         self.position = []
-        self.start_Pos = []   
-        self.goal_Pos = [] 
-        self.goal_Pos2 = []
-        self.cell_size = 25
-        self.window_width = 600
-        self.window_height = 720
         self.goal_colour = "red"
         self.wall_colour = "blue"
-        self.background = "grey"
+        self.background = "white"
         self.start_colour = "yellow"
         self.passage_colour = "white"
-        self.speed = 0.01
-        self.canvas = [] 
+
+        #Tkinter 
+        self.label = []
+        self.canvas = []   
         self.window = window
 
+#Generates a Random Maze
 ########################################################################################################################
-    def generateMaze(self):
+    def randomMaze(self):
         stack_empty = False
         visited_cells = []
         
@@ -57,6 +64,7 @@ class Maze:
         #self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
 ########################################################################################################################
 
+#maps out the passsages and walls of the maze
 ########################################################################################################################
     def findSides(self, row, col):
         adj_sides = []  
@@ -77,27 +85,31 @@ class Maze:
         return adj_sides
 ########################################################################################################################
 
-#########################################################################################################################
-    def generateWindow(self,title = "CSE4100 Semester Project"):
-        self.window.title(title)
-        self.window.geometry(f'{self.window_width}x{self.window_height}')
+#creates a tkinter canvas
 ########################################################################################################################
-
-########################################################################################################################
-    def generateCanvase(self, heading):
-        self.canvas = Canvas(self.window, width=((self.grid * self.cell_size)), height=(self.grid * self.cell_size), bg=self.background )
-        self.canvas.pack()
-        self.canvas.create_text(1160,100,fill="darkblue",font="Times 16 italic bold",text=heading)
+    def generateCanvase(self, canvas_pos, label_pos, label_text):
+        self.canvas = Canvas(self.window, width=(self.grid * self.cell_size), height=(self.grid * self.cell_size), bg=self.background )
+        self.canvas.grid(row=canvas_pos[0], column = canvas_pos[1], pady=(0,20), padx=(10,10))
+        self.label = Label(self.window, text=label_text, font="Times 16 italic bold").grid(row=label_pos[0], column=label_pos[1], sticky="n")
+        
 #########################################################################################################################
 
 #########################################################################################################################
-    def colourMaze(self):   
+    def displayMaze(self):  
+        self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
+        #self.layout[self.goal_Pos_2[0]][self.goal_Pos_2[1]] = 'goal'
+
         for row in range(self.grid):
             for col in range(self.grid):
                 if self.layout[row][col] == 'clear':
                     colour = self.passage_colour
                 elif self.layout[row][col] == 'wall':
                     colour = self.wall_colour
+                elif self.layout[row][col] == 'start':
+                    colour = self.start_colour
+                else:
+                    colour = self.goal_colour
+                    self.layout[row][col] = 'clear'
                 pos = []
                 pos.append([row, col])
                 self.draw(pos[0], colour)
@@ -111,15 +123,35 @@ class Maze:
         y2 = y1 +  self.cell_size
         self.canvas.create_rectangle(x1, y1, x2, y2, fill=colour)
 ########################################################################################################################
-
 ########################################################################################################################
-    def displayMaze(self, path):
-        self.colourMaze()
-        self.draw(self.start_Pos, self.start_colour)
-        self.draw(self.goal_Pos, self.goal_colour)
+    def runMaze(self, path):
+        #self.draw(self.start_Pos, self.start_colour)
+        #self.draw(self.goal_Pos, self.goal_colour)
 
         for node in path:
             self.draw(node, "green")
             self.window.update()
-            time.sleep(0.2)
+            time.sleep(self.speed)
+#########################################################################################################################
+
+#########################################################################################################################
+    def saveMaze(self, path):
+        maze ={
+            "start_Pos": self.start_Pos,
+            "goal_Pos": self.goal_Pos,
+            "goal_Pos_2": self.goal_Pos_2,
+            "layout": self.layout
+        }
+        with open(path, 'wt') as maze_write:
+            json.dump(maze, maze_write, )
+#########################################################################################################################
+
+######################################################################################################################### 
+    def loadMaze(self, path):
+        with open(path, 'r') as maze_read:
+            attrib = json.load(maze_read)
+            self.start_Pos = attrib['start_Pos']
+            self.goal_Pos = attrib['goal_Pos']
+            self.goal_Pos_2 = attrib['goal_Pos_2']
+            self.layout = attrib['layout']
 #########################################################################################################################

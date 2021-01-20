@@ -15,8 +15,7 @@ class Breadth_First(Search):
             return
 
         node = self.frontier.pop(0)                                  #pop the last node from the Queue
-
-        if self.goal == node["pos"]:                                 #if node contains goal state return solution
+        if self.goal == node["pos"] or self.goal_2 == node["pos"] :                                 #if node contains goal state return solution
             self.explored_set.pop(0)
             return      
 

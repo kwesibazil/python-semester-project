@@ -1,10 +1,11 @@
 class Search:
 
-    def __init__(self, layout, startPos, goalPos):
+    def __init__(self, layout, startPos, goalPos, goal_Pos_2):
         self.path = []
         self.frontier = []
         self.explored_set = []
         self.goal = goalPos
+        self.goal_2 = goal_Pos_2
         self.layout = layout
         self.start_pos = self.validNode(startPos)
         
@@ -53,3 +54,6 @@ class Search:
         if 'top' in node.keys() and self.layout[node["top"][0]][node["top"][1]] == 'clear': 
             self.visitable(node["top"])
 ########################################################################################################################
+
+
+
