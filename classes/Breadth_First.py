@@ -1,8 +1,8 @@
 from classes.Search import Search
 
 class Breadth_First(Search):
-    def __init__(self, layout, startPos, goalPos):
-        Search. __init__(self, layout, startPos, goalPos)
+    def __init__(self, layout, startPos, goalPos, goalPos_2 ):
+        Search. __init__(self, layout, startPos, goalPos, goalPos_2)
         self.frontier.append(self.start_pos)
 
         self.search()

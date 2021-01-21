@@ -1,8 +1,8 @@
 from classes.Search import Search
 
 class Depth_First(Search):
-    def __init__(self, layout, startPos, goalPos, goal_Pos_2):
-        Search. __init__(self, layout, startPos, goalPos, goal_Pos_2)
+    def __init__(self, layout, startPos, goalPos, goalPos_2):
+        Search. __init__(self, layout, startPos, goalPos, goalPos_2)
         self.frontier.append(self.start_pos)
         self.search()
 

@@ -1,11 +1,11 @@
 class Search:
 
-    def __init__(self, layout, startPos, goalPos, goal_Pos_2):
+    def __init__(self, layout, startPos, goalPos, goalPos_2):
         self.path = []
         self.frontier = []
         self.explored_set = []
         self.goal = goalPos
-        self.goal_2 = goal_Pos_2
+        self.goal_2 = goalPos_2
         self.layout = layout
         self.start_pos = self.validNode(startPos)
         

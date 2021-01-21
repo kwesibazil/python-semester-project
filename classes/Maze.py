@@ -95,9 +95,10 @@ class Maze:
 #########################################################################################################################
 
 #########################################################################################################################
-    def displayMaze(self):  
+    def displayMaze(self, option=False):  
         self.layout[self.goal_Pos[0]][self.goal_Pos[1]] = 'goal'
-        #self.layout[self.goal_Pos_2[0]][self.goal_Pos_2[1]] = 'goal'
+        if option:
+            self.layout[self.goal_Pos_2[0]][self.goal_Pos_2[1]] = 'goal'
 
         for row in range(self.grid):
             for col in range(self.grid):
@@ -125,9 +126,6 @@ class Maze:
 ########################################################################################################################
 ########################################################################################################################
     def runMaze(self, path):
-        #self.draw(self.start_Pos, self.start_colour)
-        #self.draw(self.goal_Pos, self.goal_colour)
-
         for node in path:
             self.draw(node, "green")
             self.window.update()
