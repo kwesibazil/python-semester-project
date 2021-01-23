@@ -54,19 +54,23 @@ def OptionMenuEvent (algo):
 
       result = A_Search(mazeOne.layout, mazeOne.start_Pos, mazeOne.goal_Pos, mazeOne.goal_Pos_2)
       mazeOne.displayMaze()
-      mazeOne.runMaze(result.explored_set)
+      #mazeOne.runMaze(result.explored_set)
+      mazeOne.runMaze(result.openList)
 
       result = A_Search(mazeTwo.layout, mazeTwo.start_Pos, mazeTwo.goal_Pos, mazeTwo.goal_Pos_2)
       mazeTwo.displayMaze(True)
-      mazeTwo.runMaze(result.explored_set)
+      #mazeTwo.runMaze(result.explored_set)
+      mazeTwo.runMaze(result.closeList)
 
       result = A_Search(mazeThree.layout, mazeThree.start_Pos, mazeThree.goal_Pos, mazeThree.goal_Pos_2)
       mazeThree.displayMaze()
-      mazeThree.runMaze(result.explored_set)
+      # mazeThree.runMaze(result.explored_set)\
+      mazeThree.runMaze(result.closeList)
 
       result = A_Search(mazeFour.layout, mazeFour.start_Pos, mazeFour.goal_Pos, mazeFour.goal_Pos_2)
       mazeFour.displayMaze(True)
-      mazeFour.runMaze(result.explored_set)
+      #mazeFour.runMaze(result.explored_set)
+      mazeFour.runMaze(result.closeList)
 ########################################################################################################################
 
 #file paths
@@ -100,19 +104,19 @@ mazeOne.generateCanvase([4, 0], [3, 0], "Maze: 8x8 with one solution")         #
 mazeOne.displayMaze()
 
 
-# 8 *8 Maze with two Solution
+# # 8 *8 Maze with two Solution
 mazeTwo = Maze(window, 8)
 mazeTwo.loadMaze(_8x8_with_two_solution)
 mazeTwo.generateCanvase([4, 1], [3, 1], "Maze: 8x8 with two solution")           
 mazeTwo.displayMaze()
 
-# 14 *14 Maze with one Solution
+# # 14 *14 Maze with one Solution
 mazeThree = Maze(window, 14)
 mazeThree.loadMaze(_14x14_with_one_solution)
 mazeThree.generateCanvase([7, 0], [6, 0], "Maze: 14x14 with one solution")   
 mazeThree.displayMaze()
 
-# 14 *14 Maze with one Solution
+# # 14 *14 Maze with one Solution
 mazeFour = Maze(window, 14)
 mazeFour.loadMaze(_14x14_with_two_solution)
 mazeFour.generateCanvase([7, 1], [6, 1], "Maze: 14x14 with two solution")            
